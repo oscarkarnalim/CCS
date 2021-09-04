@@ -6,7 +6,7 @@
 <img width="80%" src="https://github.com/oscarkarnalim/ccs/blob/main/code_clarity_sample_layout.png?raw=true">
 </p>
 
-### CCS suggestion types:
+## CCS suggestion types:
 1. Suggestion to update identifier names that are too short.
 2. Suggestion to update identifier names that are not meaningful.
 3. Suggestion to update identifier names that are incorrectly written.
@@ -18,7 +18,7 @@
 7. Suggestion to update comments that are incorrectly written.
 8. Suggestion to add an explaining comment for each syntax block.
 
-### Minimum command: 
+## Minimum command
 ```
 -path <program_path> -proglang <programming_language>
 ```
@@ -26,27 +26,41 @@
 <programming_language> refers to the programming language used in the program code. Values: 'java' (for Java) or 'py' (for Python). 
 The result can be seen in 'out.html'. 
 
-### Additional arguments:
+## Additional arguments
+### Treating library identifiers as keywords
 ```
 -akpath <additional_keyword_path>
 ```
 It is applicable when some identifiers need to be recognised as keywords. This typically happens when the program uses third-party libraries. <additional_keywords_path> refers to a file containing additional keywords with newline as the delimiter. Keywords with more than one token should be written by embedding spaces between the tokens. For example, 'System.out.print' should be written as 'System . out . print'.
 
+### Human language
 ```
 -humanlang <human_language>
 ```
 This changes the human language used while delivering the suggestions. <human_language> values: 'en' for both British and American English (default), 'id' for Indonesian, and 'iden' for Indonesian and English.
 
+### Reindex
 ```
 -reindex
 ```
 This forces CCS to reindex word database for spell checking. Please use it only when the human language is changed as the process is quite time consuming.
-  -outtext
-    This alters the resulted output to a standard text file ('out.txt'). This might be useful
-    when CCS is integrated to larger system.
-  -excludesi
-    This removes suggestions about identifier names that are too short.
-  -excludemi
+
+### Set the output as a text, not a HTML
+```
+-outtext
+```
+This alters the resulted output to a standard text file ('out.txt'). This might be useful when CCS is integrated to larger system.
+
+### Remove suggestions about identifier names that are too short
+```
+-excludesi
+```
+
+### Remove suggestions about identifier names that are too short
+```
+-excludemi
+```
+
     This removes suggestions about identifier names that are not meaningful.
   -excludeii
     This removes suggestions about identifier names that are incorrectly written.
