@@ -92,7 +92,7 @@ This alters the resulted output to a standard text file ('out.txt'). This might 
 ```
 
 ## Acknowledgments
-This tool uses [ANTLR](https://www.antlr.org/) to tokenise given programs, [Google Prettify](https://github.com/google/code-prettify) to display source code, [Tartarus'code](https://tartarus.org/martin/PorterStemmer/java.txt) for Porter Stemmer, and [Apache Lucene](https://lucene.apache.org/) to identify stop words and detect incorrectly written words.In terms of dictionaries for spelling correction, they are taken from three websites: [American words](https://github.com/dwyl/english-words), [British](https://www.curlewcommunications.uk/wordlist.html), and [Indonesian](http://indodic.com/SpellCheckInstall.html).
+This tool uses [ANTLR](https://www.antlr.org/) to tokenise given programs, [Google Prettify](https://github.com/google/code-prettify) to display source code, [Tartarus'code](https://tartarus.org/martin/PorterStemmer/java.txt) to stem words, and [Apache Lucene](https://lucene.apache.org/) to identify stop words and detect incorrectly written words.In terms of dictionaries for spelling correction, they are taken from three websites: [American words](https://github.com/dwyl/english-words), [British](https://www.curlewcommunications.uk/wordlist.html), and [Indonesian](http://indodic.com/SpellCheckInstall.html).
 
 
 
