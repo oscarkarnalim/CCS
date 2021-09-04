@@ -1,6 +1,6 @@
 # Code Clarity Suggester
 
-**Code Clarity Suggester** \(CCS\)aims to educate computing students about code clarity in programming. It scans Java/Python program code and highlights any identifier names or comments whose clarity needs to be improved. For convenience, the suggestion is mapped to an interactive HTML file as shown below. Further details can be seen in [the corresponding paper](#) published in 2021 IEEE Frontiers in Education (FIE) Conference. This is a work-in-progress and more code clarity aspects will be considered in its later version.
+**Code Clarity Suggester** \(CCS\)aims to educate computing students about code clarity in programming. It scans Java/Python program code and highlights any identifier names or comments whose clarity needs to be improved. For convenience, the suggestion is mapped to an interactive HTML file as shown below. Further details will be published in [a paper](#) published in 2021 IEEE Frontiers in Education (FIE) Conference. This is a work-in-progress and more code clarity aspects will be considered in its later version.
 
 <p align="center">
 <img width="80%" src="https://github.com/oscarkarnalim/ccs/blob/main/code_clarity_sample_layout.png?raw=true">
