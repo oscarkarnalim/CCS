@@ -56,26 +56,42 @@ This alters the resulted output to a standard text file ('out.txt'). This might 
 -excludesi
 ```
 
-### Remove suggestions about identifier names that are too short
+### Remove suggestions about identifier names that are not meaningful
 ```
 -excludemi
 ```
 
-### Remove suggestions about identifier names that are not meaningful.
+### Remove suggestions about identifier names that are incorrectly written
 ```
 -excludeii
 ```
 
-    This removes suggestions about identifier names that are incorrectly written.
-  -excludeici
-    This removes suggestions about identifier names that use inconsistent word transition.
-  -excludesc
-    This removes suggestions about comments that are too short.
-  -excludemc
-    This removes suggestions about comments that are not meaningful.
-  -excludeic
-    This removes suggestions about comments that are incorrectly written.
-  -excludebc
-    This removes suggestions about adding an explaining comment per syntax block.
+### Remove suggestions about identifier names that use inconsistent word transition
+```
+-excludeici
+```
+
+### Remove suggestions about comments that are too short
+```
+-excludesc
+```
+
+### Remove suggestions about comments that are not meaningful
+```
+-excludemc
+```
+
+### Remove suggestions about comments that are incorrectly written
+```
+-excludeic
+```
+
+### Remove suggestions about adding an explaining comment per syntax block
+```
+-excludebc
+```
+
+
+
 
 
