@@ -22,12 +22,12 @@
 ```
 -path <program_path> -proglang <programming_language>
 ```
-<program_path> is the complete path of targeted program code file.
-<programming_language> refers to the programming language used in the program code. Values: 'java' (for Java) or 'py' (for Python).
-The result can be seen in 'out.html'.
+<program_path> is the complete path of targeted program code file. 
+<programming_language> refers to the programming language used in the program code. Values: 'java' (for Java) or 'py' (for Python). 
+The result can be seen in 'out.html'. 
 
 ### Additional arguments:
-  *-akpath <additional_keyword_path>*
+  *-akpath <additional_keyword_path>* 
     It is applicable when some identifiers need to be recognised as keywords. This typically happens when the program uses third-party libraries. <additional_keywords_path> refers
     to a file containing additional keywords with newline as the delimiter. Keywords with more than one token should be written by embedding spaces between the tokens. For example, 'System.out.print' should be written as 'System . out . print'.
   -humanlang <human_language>
