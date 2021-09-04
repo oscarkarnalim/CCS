@@ -39,7 +39,7 @@ It is applicable when some identifiers need to be recognised as keywords. This t
 ```
 This changes the human language used while delivering the suggestions. <human_language> values: 'en' for both British and American English (default), 'id' for Indonesian, and 'iden' for Indonesian and English.
 
-### Reindex
+### Reindex words for spelling correction
 ```
 -reindex
 ```
