@@ -6,7 +6,7 @@
 <img width="80%" src="https://github.com/oscarkarnalim/ccs/blob/main/code_clarity_sample_layout.png?raw=true">
 </p>
 
-## CCS suggestion types:
+## CCS suggestion types
 1. Suggestion to update identifier names that are too short.
 2. Suggestion to update identifier names that are not meaningful.
 3. Suggestion to update identifier names that are incorrectly written.
@@ -61,8 +61,11 @@ This alters the resulted output to a standard text file ('out.txt'). This might 
 -excludemi
 ```
 
-    This removes suggestions about identifier names that are not meaningful.
-  -excludeii
+### Remove suggestions about identifier names that are not meaningful.
+```
+-excludeii
+```
+
     This removes suggestions about identifier names that are incorrectly written.
   -excludeici
     This removes suggestions about identifier names that use inconsistent word transition.
