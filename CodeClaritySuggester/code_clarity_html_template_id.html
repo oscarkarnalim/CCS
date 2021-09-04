@@ -1,0 +1,478 @@
+<html>
+	<head>
+		<title> Rekomendasi untuk kejelasan kode </title>
+    <!-- Google Prettify to generate highlight https://github.com/google/code-prettify -->
+		<script src="ccs_html_layout_additional_files/run_prettify.js"></script>
+    <script>
+			function construct(){
+			}
+
+			// function to toggle general info given at top left of the page.
+			function toggleCollapsible(targetDiv){
+				var content = document.getElementById(targetDiv);
+				if (content.style.display == "block") {
+					content.style.display = "none";
+				} else {
+					content.style.display = "block";
+				}
+			}
+
+			// sort table content. Copied and modified from https://www.w3schools.com/howto/howto_js_sort_table.asp
+			function sortTable(n, tableId, isNumber, tableContainerId) {
+			  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+			  table = document.getElementById(tableId);
+			  switching = true;
+			  // Set the sorting direction to ascending:
+			  dir = "asc";
+			  /* Make a loop that will continue until
+			  no switching has been done: */
+			  while (switching) {
+			    // Start by saying: no switching is done:
+			    switching = false;
+			    rows = table.rows;
+			    /* Loop through all table rows */
+			    for (i = 0; i < (rows.length - 1); i++) {
+			      // Start by saying there should be no switching:
+			      shouldSwitch = false;
+			      /* Get the two elements you want to compare,
+			      one from current row and one from the next: */
+			      x = rows[i].getElementsByTagName("TD")[n];
+			      y = rows[i + 1].getElementsByTagName("TD")[n];
+				  	if(n==0){
+							/*
+							* the column content is encapsulated with a link and can provide confusing result
+							* as the <A> tag is considered in comparison
+							*/
+							x = x.getElementsByTagName("A")[0];
+							y = y.getElementsByTagName("A")[0];
+				  	}
+			      /* Check if the two rows should switch place,
+			      based on the direction, asc or desc: */
+			      if (dir == "asc") {
+							if(isNumber == true){
+								numx = Number(x.innerHTML.split(" ")[0]);
+								numy = Number(y.innerHTML.split(" ")[0]);
+								if (numx > numy ){
+				          // If so, mark as a switch and break the loop:
+				          shouldSwitch = true;
+				          break;
+				        }
+							}else{
+				        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+				          // If so, mark as a switch and break the loop:
+				          shouldSwitch = true;
+				          break;
+				        }
+							}
+			      } else if (dir == "desc") {
+							if(isNumber == true){
+								numx = Number(x.innerHTML.split(" ")[0]);
+								numy = Number(y.innerHTML.split(" ")[0]);
+								if (numx < numy ){
+				          // If so, mark as a switch and break the loop:
+				          shouldSwitch = true;
+				          break;
+				        }
+							}else{
+				        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+				          // If so, mark as a switch and break the loop:
+				          shouldSwitch = true;
+				          break;
+				        }
+							}
+			      }
+			    }
+			    if (shouldSwitch) {
+			      /* If a switch has been marked, make the switch
+			      and mark that a switch has been done: */
+			      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+			      switching = true;
+			      // Each time a switch is done, increase this count by 1:
+			      switchcount ++;
+			    } else {
+			      /* If no switching has been done AND the direction is "asc",
+			      set the direction to "desc" and run the while loop again. */
+			      if (switchcount == 0 && dir == "asc") {
+			        dir = "desc";
+			        switching = true;
+			      }
+			    }
+			  }
+
+			recolorTableContent(tableId);
+				// set to the same selection as prior sorted
+				if(selectedCodeFragmentId != null)
+					markSelected(selectedCodeFragmentId,tableId);
+			}
+
+			function recolorTableContent(tableId){
+				table = document.getElementById(tableId);
+				rows = table.rows;
+				/* Loop through all table rows */
+				for (i = 0; i < rows.length; i++) {
+					if(i%2 == 0){
+						rows[i].style.backgroundColor = "rgba(255,255,255,1)";
+					}else {
+						rows[i].style.backgroundColor = "#eeeeee";
+					}
+				}
+			}
+
+			function markSelected(id, tableId){
+				// for header table, redirect to the row's link
+				window.location.hash = '#' + id + "hl";
+				// mark all related components on both code views and the table.
+				markSelectedWithoutChangingTableFocus(id, tableId);
+			}
+
+			// to highlight code
+			var selectedCodeFragmentId = null;
+			function markSelectedWithoutChangingTableFocus(id, tableId){
+				if(selectedCodeFragmentId != null){
+					resetCurrentFocus();
+					// for header table, recolor the contents
+					recolorTableContent(tableId);
+				}
+				// set the CSS of currently selected fragment
+				var defaultColour = "";
+				if(id.startsWith("c")){
+					defaultColour = "rgba(244,224,104,1)";
+				}else if(id.startsWith("s")){
+					defaultColour = "rgba(101,244,104,1)";
+				}
+				// for code panel
+				recolorCodeFragment(id + "a",defaultColour);
+				window.location.hash = '#' + id + "a";
+				// for header table, recolor the row
+				recolorCodeFragment(id + "hr",defaultColour);
+				// for natural language explanation
+				document.getElementById(id +"he").style.display = "block";
+				selectedCodeFragmentId = id;
+			}
+
+			function resetCurrentFocus(){
+				// do nothing if selectedCodeFragmentId is null
+				if(selectedCodeFragmentId == null)
+					return;
+
+
+				// reset the CSS of previously selected fragment
+				var defaultColour = "";
+				if(selectedCodeFragmentId.startsWith("c")){
+					defaultColour = "rgba(244,224,174,1)";
+				}else if(selectedCodeFragmentId.startsWith("s")){
+					defaultColour = "rgba(171,244,174,1)";
+				}
+
+				// for natural language explanation
+				document.getElementById(selectedCodeFragmentId +"he").style.display = "none";
+				// for code panel
+				recolorCodeFragment(selectedCodeFragmentId +"a", defaultColour);
+
+				selectedCodeFragmentId = null;
+			}
+
+			// recolor a code fragment with its following rows
+			function recolorCodeFragment(id, defaultColour){
+				document.getElementById(id).style.backgroundColor = defaultColour;
+			}
+    </script>
+    <style>
+		body{
+			font-family: "Times New Roman", Times, serif;
+			font-size: 12px;
+			background-color: rgba(253,253,253,1);
+		}
+		a{
+			text-decoration: none;
+			color: black;
+		}
+		div{
+			float:left;
+		}
+
+		/* left panel */
+		div.leftpanel{
+			width:48%;
+			height:100%;
+			margin-right:1.5%;
+		}
+
+		/* title panel */
+		div.titlepanel{
+			width:100%;
+			height:9%;
+		}
+		div.image{
+			width:15%;
+			margin-right:1%;
+			margin-bottom:1%;
+		}
+		img{
+			width:100%;
+			margin-bottom:1%;
+		}
+		div.titlewrapper{
+			width:84%;
+			font-weight: bold;
+			font-size: 22px;
+			padding-top:20px;
+			color: rgba(0,65,111,1);
+		}
+
+		/* message panel */
+		div.messagepanel{
+			width:98%;
+			height:25%;
+			border: 1px solid #b1b1b1;
+			padding:1%;
+			overflow:auto;
+		}
+		ol{
+			margin-top:-2px;
+		}
+		div.subtitlewrapper{
+			width:30%;
+			font-size:14px;
+			padding-bottom:3px;
+			font-weight:bold;
+		}
+		div.subcontentwrapper{
+			width:69%;
+			font-size:14px;
+			padding-bottom:3px;
+		}
+		div.longsubtitlewrapper{
+			width:100%;
+			font-size:14px;
+			padding-bottom:3px;
+			font-weight:bold;
+		}
+		div.longsubcontentwrapper{
+			width:100%;
+			font-size:14px;
+			padding-bottom:3px;
+			display: none;
+			overflow: hidden;
+		}
+		button.collapsible {
+			background-color: rgba(0,140,186,1);
+			border: none;
+			color: white;
+			padding: 2px 4px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			cursor: pointer;
+		}
+
+		/* for left code view */
+		div.codetitle{
+			width:100%;
+			font-size:14px;
+			font-weight:bold;
+			margin-top:1%;
+			margin-bottom:-1.5%;
+		}
+		div.codeview{
+			width: 100%;
+			height:58%;
+		}
+		pre{
+			tab-size: 2;
+			overflow: auto;
+			width: 100%;
+			height:100%;
+			float:left;
+			border-color: #b1b1b1;
+		}
+		.commentsim{
+			background-color:rgba(244,224,174,1);
+		}
+		.syntaxsim{
+			background-color:rgba(171,244,174,1);
+		}
+		.linenums li {
+			list-style-type: decimal;
+		}
+
+		/* for table, copied and modified from https://www.w3schools.com/html/tryit.asp?filename=tryhtml_table_intro*/
+		div.tablecontainer{
+			width: 100%;
+			height:60%;
+			margin-bottom:1%;
+		}
+		div.tableheader{
+			width: 100%;
+			height:7%;
+		}
+		div.tablecontentcontainer{
+			width:100%;
+			height:93%;
+			overflow-y:scroll;
+			overflow-x: hidden;
+			border: 1px solid #b1b1b1;
+		}
+		table {
+			width:100%;
+			font-family: inherit;
+			font-size: inherit;
+			border-collapse: collapse;
+			table-layout: fixed
+		}
+		table.header {
+			width:97.5%;
+		}
+		td, th {
+			border: 1px solid #b1b1b1;
+			text-align: center;
+		}
+		td{
+			width:20%;
+			padding: 2px;
+		}
+		th{
+			border-top: none;
+			background-color: rgba(0,140,186,1);
+			color: white;
+			padding: 4px 8px;
+			text-align: center;
+			text-decoration: none;
+			font-weight: normal;
+			width:25%;
+			height:100%;
+			cursor: pointer;
+		}
+		tr:nth-child(even) {
+			background-color: #eeeeee;
+		}
+		tr{
+			cursor: pointer;
+		}
+		img.sortpic{
+			float:right;
+			width:12px;
+			margin-bottom:0px;
+		}
+
+		/* right panel */
+		div.rightpanel{
+			width:49%;
+			height:100%;
+		}
+		div.explanationpanel{
+			width:98%;
+			height:30%;
+			border: 1px solid #b1b1b1;
+			margin-bottom:1%;
+			padding:1%;
+			overflow-y:auto;
+			overflow-x:hidden;
+		}
+		div.explanationcontent{
+			float:left;
+			width:98%;
+			padding:1%;
+			display: none;
+			text-align: justify;
+		}
+
+		/* only for table inside the explanation */
+		td.inexplanation, th.inexplanation {
+			border: 1px solid black;
+			text-align: center;
+			padding: 0;
+			height:16px;
+			font-size: 12px;
+		}
+		th.inexplanation{
+			border: 1px solid black;
+			background-color: white;
+			color: black;
+			width:20%;
+			cursor: none;
+			font-weight:bold;
+		}
+		tr.inexplanation:nth-child(even) {
+			background-color: white;
+		}
+		tr.inexplanation{
+			cursor: default;
+			padding: 0;
+			height:16px;
+			font-size: 12px;
+		}
+		button.action{
+			width:100%;
+			border:none;
+			outline: none;
+			cursor: pointer;
+			padding: 6px 20px;
+			transition: 0.3s;
+			background-color: rgba(0,112,149,1);
+			text-align: center;
+			color: white;
+			text-decoration: none;
+			margin-top:2%;
+			margin-left:1px;
+		}
+		/* to display div in simulation mode */
+		div.longsubcontentwrapperdisplay{
+			display: block;
+		}
+		div.explanationpanel{
+			font-size:14px;
+		}
+    </style>
+  </head>
+  <body onload="construct()">
+    <div class="leftpanel">
+      <div class="titlepanel">
+		<div class="titlewrapper">
+		Rekomendasi untuk Kejelasan Kode
+		</div>
+      </div>
+	  <div class="messagepanel">
+		<div class="longsubtitlewrapper">Panduan umum terkait kejelasan kode:</div>
+		<div class="longsubcontentwrapper longsubcontentwrapperdisplay">
+			<ol>
+				<li>Nama identifier atau komentar harus paling tidak berisi tiga karakter karena kata-kata yang lebih pendek biasanya tidak bermakna</li>
+				<li>Nama identifier atau komentar harus berisi paling tidak satu kata bermakna</li>
+				<li>Kata-kata di nama identifier atau komentar harus tertulis dengan benar</li>
+				<li>Transisi antar kata di nama identifier diperlukan dan harus konsisten; transisi dapat berupa kapitalisasi (iniSebuahVar) atau underskor (ini_sebuah_var)</li>
+				<li>Setiap blok sintaks harus dilengkapi dengan komentar penjelas di sekitar blok sintaks tersebut</li>
+				<li>Kode program yang dijadikan komentar mungkin dapat dihapus jika tidak diperlukan</li>
+			</ol>
+		</div>
+	</div>
+	<div class="codetitle"> Kode program:</div>
+	<div class="codeview">
+		<pre class="prettyprint linenums"> @code
+		</pre>
+	</div>
+    </div>
+    <div class="rightpanel">
+			<div class="subtitlewrapper">Rekomendasi:</div>';
+			<div class="subcontentwrapper"></div>
+			<div class="tablecontainer">
+				<div class="tableheader">
+					<table class="header">
+						<tr>
+							<th onclick="sortTable(0,'origtablecontent',false, 'origcontainer')" >ID <img class="sortpic" src="strange_html_layout_additional_files/sort icon.png" alt="logo"></th>
+							<th onclick="sortTable(1,'origtablecontent',false, 'origcontainer')">Teks petunjuk <img class="sortpic" src="strange_html_layout_additional_files/sort icon.png" alt="logo"></th>
+							<th onclick="sortTable(2,'origtablecontent',false, 'origcontainer')">Konten target<img class="sortpic" src="strange_html_layout_additional_files/sort icon.png" alt="logo"></th>
+							<th onclick="sortTable(3,'origtablecontent',false, 'origcontainer')">Isu potensial<img class="sortpic" src="strange_html_layout_additional_files/sort icon.png" alt="logo"></th>
+						</tr>
+					</table>
+				</div>
+				<div class="tablecontentcontainer" id="origcontainer">
+					<table id="origtablecontent"> @tablecontent
+					</table>
+				</div>
+			</div>
+			<div class="longsubtitlewrapper">Detil:</div>
+			<div class="explanationpanel"> @explanation
+			</div>
+    </div>
+  </body>
+</html>
