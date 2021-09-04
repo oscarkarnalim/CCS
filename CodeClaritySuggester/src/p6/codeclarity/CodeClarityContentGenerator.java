@@ -13,34 +13,6 @@ import support.LibPythonExtractor;
 import support.LibTuple;
 
 public class CodeClarityContentGenerator {
-	public static void main(String[] args) {
-		String path = "C:\\Users\\oscar\\Desktop\\data\\[Python][3 classes][uon] Introductory Programming First Semester 2019\\Inft1004_A2_2019_Callaghan\\008\\LucasHollDarcyLoretanAssgt2.py";
-		String additional_keywords_path = "python input output and JES keywords.txt";
-		String programmingLanguageCode = "py";
-		String languageCode = "en"; // it can be "en", "id", and "iden" (indo english)
-		boolean reindex = false;
-		boolean isOutText = false;
-
-		path = "C:\\Users\\oscar\\Desktop\\Test.py";
-
-		path = "C:\\Users\\oscar\\Desktop\\Test.java";
-		additional_keywords_path = "java input output keywords.txt";
-		programmingLanguageCode = "java";
-
-		boolean isTooShortIdentSuggested = true;
-		boolean isNotDescriptiveIdentSuggested = true;
-		boolean isIncorrectlyWrittenIdentSuggested = true;
-		boolean isInconsistentTransitionIdentSuggested = true;
-		boolean isTooShortCommentSuggested = true;
-		boolean isNotDescriptiveCommentSuggested = true;
-		boolean isIncorrectlyWrittenCommentSuggested = true;
-		boolean isCommentPerSyntaxBlockSuggested = true;
-
-		execute(path, additional_keywords_path, programmingLanguageCode, languageCode, reindex,
-				isTooShortIdentSuggested, isNotDescriptiveIdentSuggested, isIncorrectlyWrittenIdentSuggested,
-				isInconsistentTransitionIdentSuggested, isTooShortCommentSuggested, isNotDescriptiveCommentSuggested,
-				isIncorrectlyWrittenCommentSuggested, isCommentPerSyntaxBlockSuggested, isOutText);
-	}
 
 	public static void execute(String path, String additional_keywords_path, String programmingLanguageCode,
 			String languageCode, boolean reindex, boolean isTooShortIdentSuggested,
