@@ -27,16 +27,20 @@
 The result can be seen in 'out.html'. 
 
 ### Additional arguments:
-  *-akpath <additional_keyword_path>* 
-    It is applicable when some identifiers need to be recognised as keywords. This typically happens when the program uses third-party libraries. <additional_keywords_path> refers
-    to a file containing additional keywords with newline as the delimiter. Keywords with more than one token should be written by embedding spaces between the tokens. For example, 'System.out.print' should be written as 'System . out . print'.
-  -humanlang <human_language>
-    This changes the human language used while delivering the suggestions.
-    <human_language> values: 'en' for both British and American English (default), 'id' for 
-      Indonesian, and 'iden' for Indonesian and English.
-  -reindex
-    This forces CCS to reindex word database for spell checking. Please use it only when the 
-    human language is changed as the process is quite time consuming.
+```
+-akpath <additional_keyword_path>
+```
+It is applicable when some identifiers need to be recognised as keywords. This typically happens when the program uses third-party libraries. <additional_keywords_path> refers to a file containing additional keywords with newline as the delimiter. Keywords with more than one token should be written by embedding spaces between the tokens. For example, 'System.out.print' should be written as 'System . out . print'.
+
+```
+-humanlang <human_language>
+```
+This changes the human language used while delivering the suggestions. <human_language> values: 'en' for both British and American English (default), 'id' for Indonesian, and 'iden' for Indonesian and English.
+
+```
+-reindex
+```
+This forces CCS to reindex word database for spell checking. Please use it only when the human language is changed as the process is quite time consuming.
   -outtext
     This alters the resulted output to a standard text file ('out.txt'). This might be useful
     when CCS is integrated to larger system.
