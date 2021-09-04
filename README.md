@@ -6,7 +6,7 @@
 <img width="80%" src="https://github.com/oscarkarnalim/ccs/blob/main/code_clarity_sample_layout.png?raw=true">
 </p>
 
-CCS provides eight suggestion types:
+### CCS suggestion types:
 1. Suggestion to update identifier names that are too short.
 2. Suggestion to update identifier names that are not meaningful.
 3. Suggestion to update identifier names that are incorrectly written.
@@ -19,12 +19,12 @@ CCS provides eight suggestion types:
 8. Suggestion to add an explaining comment for each syntax block.
 
 ### Minimum command: 
-'''
+```
 -path <program_path> -proglang <programming_language>
-'''
-  <program_path> is the complete path of targeted program code file.
-  <programming_language> refers to the programming language used in the program code. Values: 'java' (for Java) or 'py' (for Python).
-  The result can be seen in 'out.html'.
+```
+<program_path> is the complete path of targeted program code file.
+<programming_language> refers to the programming language used in the program code. Values: 'java' (for Java) or 'py' (for Python).
+The result can be seen in 'out.html'.
 
 ### Additional arguments:
   *-akpath <additional_keyword_path>*
